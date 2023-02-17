@@ -1,3 +1,30 @@
+<script src="app-routing.module.ts"></script>
 <tui-theme-night></tui-theme-night>
-<tui-root tuiMode="onDark"></tui-root>
-<!--<router-outlet></router-outlet>-->
+<tui-root tuiMode="onDark">
+  <div class="container global-container">
+    <tui-carousel
+      [duration]="4000"
+      [(index)]="index"
+    >
+      <ng-container *ngFor="let item of items">
+        <tui-island *tuiItem>
+          <h2 class="tui-island__title">{{ item }}</h2>
+          <!-- TODO: update documentation here -->
+          <a
+            tuiButton
+            href="https://en.wikipedia.org/wiki/{{ item }}"
+          >
+            Wiki
+          </a>
+        </tui-island>
+      </ng-container>
+    </tui-carousel>
+    <tui-pagination
+      size="s"
+      class="pagination"
+      [length]="items.length"
+      [(index)]="index"
+    ></tui-pagination>
+
+  </div>
+</tui-root>

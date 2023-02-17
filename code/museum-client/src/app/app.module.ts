@@ -5,7 +5,7 @@ import {
   TuiAlertModule,
   TUI_SANITIZER,
   TuiThemeNightModule,
-  TuiModeModule
+  TuiModeModule, TuiLabelModule, TuiTextfieldControllerModule, TuiTooltipModule, TuiButtonModule
 } from "@taiga-ui/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
@@ -13,25 +13,29 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {TuiAccordionModule} from "@taiga-ui/kit";
-import { IntroductionComponent } from './introduction/introduction.component';
+import {TuiCarouselModule, TuiInputModule, TuiIslandModule, TuiPaginationModule} from "@taiga-ui/kit";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    IntroductionComponent
+    AppComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        TuiRootModule,
-        TuiDialogModule,
-        TuiAlertModule,
-        TuiAccordionModule,
-        TuiThemeNightModule,
-        TuiModeModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    TuiRootModule,
+    TuiDialogModule,
+    TuiAlertModule,
+    TuiThemeNightModule,
+    TuiButtonModule,
+    TuiIslandModule,
+    TuiTextfieldControllerModule,
+    TuiLabelModule,
+    TuiInputModule,
+    TuiTooltipModule,
+    TuiCarouselModule,
+    TuiPaginationModule,
+  ],
   providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]
 })
