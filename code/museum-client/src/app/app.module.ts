@@ -13,11 +13,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {TuiCarouselModule, TuiInputModule, TuiIslandModule, TuiPaginationModule} from "@taiga-ui/kit";
+import {
+  TuiCarouselModule,
+  TuiComboBoxModule, TuiDataListWrapperModule,
+  TuiInputModule,
+  TuiIslandModule,
+  TuiPaginationModule, TuiSelectModule, TuiToggleModule
+} from "@taiga-ui/kit";
+import { FormSettingsComponent } from './form-settings/form-settings.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FormSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +44,11 @@ import {TuiCarouselModule, TuiInputModule, TuiIslandModule, TuiPaginationModule}
     TuiTooltipModule,
     TuiCarouselModule,
     TuiPaginationModule,
+    TuiComboBoxModule,
+    ReactiveFormsModule,
+    TuiDataListWrapperModule,
+    TuiSelectModule,
+    TuiToggleModule,
   ],
   providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]

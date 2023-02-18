@@ -1,0 +1,44 @@
+<div class="centred">
+  <tui-island
+    size="l">
+    <div class="tui-island__content">
+      <form>
+        <h2>Настройки Museum</h2>
+          <label
+            class="tui-l"
+            tuiLabel="Включить приложение">
+            <tui-toggle
+              formControlName="testValue5"
+              size="l"
+              [showIcons]="true"
+            ></tui-toggle>
+          </label>
+        <tui-select
+          class="mt"
+          tuiTextfieldSize="l"
+          [formControl]="testValue"
+          [valueContent]="itemContent">
+          Интервал смены картины
+          <input
+            tuiTextfield
+            placeholder="Выберите интервал"
+          />
+          <tui-data-list-wrapper
+            *tuiDataList
+            [items]="changeIntervals"
+            [itemContent]="itemContent"
+          ></tui-data-list-wrapper>
+        </tui-select>
+
+        <ng-template #itemContent let-item>
+          {{item.uiName}}
+        </ng-template>
+
+        <button
+          class="tui-island__footer-button"
+          tuiButton
+          type="button">Сохранить</button>
+      </form>
+    </div>
+  </tui-island>
+</div>
