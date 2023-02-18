@@ -5,8 +5,19 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  /**
+   * Запомнить обои пользователя, чтобы потом иметь возможность их восстановить
+   */
+  @Get('rememberUserWallpaper')
+  rememberUserWallpaper(): string {
+    return this.appService.rememberUserWallpaper();
+  }
+
+  /**
+   * Установить изначальные обои пользователя, которые ранее были созранены
+   */
+  @Get('restoreUserWallpaper')
+  restoreUserWallpaper(): string {
+    return this.appService.restoreUserWallpaper();
   }
 }
