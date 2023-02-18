@@ -11,7 +11,7 @@ export class SettingsComponent implements OnInit {
 
   public changeIntervals = ChangePeriodsNames;
 
-  public testValue = new FormControl(this.changeIntervals[2]);
+  public changeIntervalControl = new FormControl(this.changeIntervals[2]);
 
   constructor() { }
 

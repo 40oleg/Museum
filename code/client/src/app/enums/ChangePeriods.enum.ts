@@ -17,7 +17,7 @@ interface ChangePeriodsName {
 }
 
 export const ChangePeriodsNames: ChangePeriodsName[] = [
-  { innerName: ChangePeriodsEnum.EVERY_15_SECONDS, uiName: 'Каждые 15 секунд' },
+  { innerName: ChangePeriodsEnum.EVERY_15_SECONDS, uiName: 'Каждые 15 секунд (debug)' },
   { innerName: ChangePeriodsEnum.EVERY_HOUR, uiName: 'Каждый час'},
   { innerName: ChangePeriodsEnum.EVERY_3_HOURS, uiName: 'Каждые 3 часа'},
   { innerName: ChangePeriodsEnum.EVERY_DAY, uiName: 'Каждый день'},
