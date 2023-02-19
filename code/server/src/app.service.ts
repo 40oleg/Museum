@@ -17,6 +17,9 @@ export class AppService {
 
   // @ts-ignore
   restoreUserWallpaper(): string {
-    this.wallpaperController.setWallpaper(`C:/wallpapers/${this.counter}.jpg`);
+    console.log(123)
+    console.log(this.wallpaperController.getWallpaper());
+    console.log(123)
+    // this.wallpaperController.setWallpaper(`C:/wallpapers/${this.counter}.jpg`);
   }
 }
