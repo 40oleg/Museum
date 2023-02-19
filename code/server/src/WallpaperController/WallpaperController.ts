@@ -13,6 +13,10 @@ export enum MuseumOS {
     'win32' = 'win32',
 }
 
+/**
+ * This class use as main class to work with wallpapers.
+ * Instantiate this class to start working with wallpapers.
+ */
 export class WallpaperController {
     private operationSystemAPI: IHaveWallpaperAPI;
     constructor() {

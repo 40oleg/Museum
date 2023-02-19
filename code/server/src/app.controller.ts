@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   /**
-   * Запомнить обои пользователя, чтобы потом иметь возможность их восстановить
+   * Remember original user wallpaper, because we need an opportunity to restore it
    */
   @Get('rememberUserWallpaper')
   rememberUserWallpaper(): string {
@@ -14,7 +14,7 @@ export class AppController {
   }
 
   /**
-   * Установить изначальные обои пользователя, которые ранее были созранены
+   * Set original user wallpaper that was saved earlier
    */
   @Get('restoreUserWallpaper')
   restoreUserWallpaper(): string {

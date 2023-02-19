@@ -1,6 +1,9 @@
 import {execSync} from "node:child_process";
 import {IHaveWallpaperAPI} from "../IHaveWallpaperAPI";
 
+/**
+ * Implementation wallpaper interface for Windows OS.
+ */
 export class WinWallpaperAPI implements IHaveWallpaperAPI {
     constructor() {}
     public getWallpaper(): string {

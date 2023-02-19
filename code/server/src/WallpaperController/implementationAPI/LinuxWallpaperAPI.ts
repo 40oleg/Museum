@@ -1,5 +1,8 @@
 import {IHaveWallpaperAPI} from "../IHaveWallpaperAPI";
 
+/**
+ * Implementation wallpaper interface for Linux OS.
+ */
 export class LinuxWallpaperAPI implements IHaveWallpaperAPI {
     constructor() {}
     public getWallpaper(): string {
