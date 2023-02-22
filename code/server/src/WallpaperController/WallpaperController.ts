@@ -21,7 +21,6 @@ export class WallpaperController {
     private operationSystemAPI: IHaveWallpaperAPI;
     constructor() {
         const osName = os.platform();
-        console.log(osName);
         if(osName === MuseumOS.win32) {
             this.operationSystemAPI = new WinWallpaperAPI();
             return;
