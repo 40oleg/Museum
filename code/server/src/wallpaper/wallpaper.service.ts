@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {WallpaperController} from "../WallpaperController/WallpaperController";
+import {WallpaperController} from "../WallpaperAdapter/WallpaperController";
 
 @Injectable()
 export class WallpaperService {
