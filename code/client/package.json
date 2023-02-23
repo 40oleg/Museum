@@ -2,15 +2,22 @@
   "name": "museum-web-client",
   "version": "0.0.0",
   "homepage": "./",
+  "main": "./src/electron.prod.js",
+  "description": "My Electron application description",
+  "author": {
+    "name": "hanahana",
+    "email": "enigma597@mail.ru"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "make": "electron-forge make",
     "electron": "electron ./src/electron.dev",
     "start-electron": "concurrently \"ng serve\" \"npm run electron\"",
-    "package:win": "npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=win32 --arch=all --overwrite ",
+    "package:win": "npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=win32 --arch=all --overwrite -p ",
     "package:linux": "npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=linux --arch=all --overwrite ",
     "package:osx": "npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=darwin --arch=all --overwrite ",
     "package:all": "npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --all --arch=all --overwrite "
@@ -34,7 +41,13 @@
     "dompurify": "2.2.9",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "electron": "23.1.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.1.2",
