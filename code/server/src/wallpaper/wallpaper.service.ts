@@ -1,9 +1,5 @@
 import { Injectable } from '@nestjs/common';
-
-(async () => {
-    const wallpaper = await import('wallpaper');
-    wallpaper.setWallpaper(`C:/wallpapers/2.jpg`)
-})();
+import { setWallpaper } from 'wallpaper';
 
 @Injectable()
 export class WallpaperService {
@@ -21,6 +17,6 @@ export class WallpaperService {
     restoreUserWallpaper(): string {
         // console.log(this.wallpaperController.getWallpaper());
         // this.wallpaperController.setWallpaper(`C:/wallpapers/${this.counter}.jpg`);
-        // setWallpaper(`C:/wallpapers/${this.counter}.jpg`)
+        setWallpaper(`C:/wallpapers/${this.counter}.jpg`)
     }
 }
