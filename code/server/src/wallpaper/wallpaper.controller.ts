@@ -19,4 +19,9 @@ export class WallpaperController {
     restoreUserWallpaper(): string {
         return this.wallpaperService.restoreUserWallpaper();
     }
+
+    @Get('startCarousel')
+    startCarousel() {
+
+    }
 }

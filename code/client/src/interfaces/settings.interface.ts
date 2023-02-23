@@ -1,4 +1,4 @@
-import {ChangePeriodsEnum} from "../enums/ChangePeriods.enum";
+import {ChangePeriodsEnum} from "../enums/ChangePeriods.enum.js";
 
 export interface MuseumSettings {
   changePeriod: ChangePeriodsEnum;
