@@ -1,5 +1,5 @@
 import {Controller, Get} from '@nestjs/common';
-import {WallpaperService} from "./wallpaper.service";
+import {WallpaperService} from "./wallpaper.service.js";
 
 @Controller('wallpaper')
 export class WallpaperController {

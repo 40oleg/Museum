@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { WallpaperController } from './wallpaper.controller';
-import {WallpaperService} from "./wallpaper.service";
+import { WallpaperController } from './wallpaper.controller.js';
+import {WallpaperService} from "./wallpaper.service.js";
 
 @Module({
   imports: [],
