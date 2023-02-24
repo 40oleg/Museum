@@ -4,6 +4,7 @@ import { SettingsComponent } from './settings.component';
 import {TuiDataListWrapperModule, TuiIslandModule, TuiSelectModule, TuiToggleModule} from "@taiga-ui/kit";
 import {TuiButtonModule, TuiDataListModule, TuiLabelModule} from "@taiga-ui/core";
 import {ReactiveFormsModule} from "@angular/forms";
+import {AudioModule} from "../audio/audio.module";
 
 
 
@@ -14,18 +15,19 @@ import {ReactiveFormsModule} from "@angular/forms";
     exports: [
         SettingsComponent
     ],
-  imports: [
-    CommonModule,
-    TuiDataListWrapperModule,
-    TuiSelectModule,
-    TuiToggleModule,
-    TuiIslandModule,
-    TuiButtonModule,
-    TuiLabelModule,
-    TuiDataListWrapperModule,
-    TuiSelectModule,
-    TuiDataListModule,
-    ReactiveFormsModule,
-  ]
+    imports: [
+      CommonModule,
+      TuiDataListWrapperModule,
+      TuiSelectModule,
+      TuiToggleModule,
+      TuiIslandModule,
+      TuiButtonModule,
+      TuiLabelModule,
+      TuiDataListWrapperModule,
+      TuiSelectModule,
+      TuiDataListModule,
+      ReactiveFormsModule,
+      AudioModule,
+    ]
 })
 export class SettingsModule { }
