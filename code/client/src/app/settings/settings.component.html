@@ -2,13 +2,13 @@
   <tui-island
     size="l">
     <div class="tui-island__content">
-      <form>
+      <form [formGroup]="configurationGroup">
         <h2>Настройки Museum</h2>
           <label
             class="tui-l"
             tuiLabel="Включить приложение">
             <tui-toggle
-              formControlName="testValue5"
+              formControlName="enabledCarousel"
               size="l"
               [showIcons]="true"
             ></tui-toggle>
@@ -16,7 +16,7 @@
         <tui-select
           class="mt"
           tuiTextfieldSize="l"
-          [formControl]="changeIntervalControl"
+          formControlName="changeInterval"
           [valueContent]="itemContent">
           Интервал смены картины
           <input
@@ -35,7 +35,7 @@
         </ng-template>
 
         <button
-          (click)="saveSettings()"
+          (click)="saveConfiguration()"
           class="tui-island__footer-button"
           tuiButton
           type="button">Сохранить</button>

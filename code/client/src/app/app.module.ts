@@ -12,6 +12,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { SettingsModule } from "./settings/settings.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SettingsModule } from "./settings/settings.module";
     TuiThemeNightModule,
     TuiModeModule,
     SettingsModule,
+    HttpClientModule,
   ],
   providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]

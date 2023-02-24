@@ -8,9 +8,7 @@ const sounds = {
   [SoundsEnum.Success]: './assets/sounds/bell2.wav',
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AudioService {
   private audio = new Audio(sounds[SoundsEnum.Success]);
   constructor() { }

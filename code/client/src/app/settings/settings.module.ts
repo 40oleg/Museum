@@ -15,19 +15,19 @@ import {AudioModule} from "../audio/audio.module";
     exports: [
         SettingsComponent
     ],
-    imports: [
-      CommonModule,
-      TuiDataListWrapperModule,
-      TuiSelectModule,
-      TuiToggleModule,
-      TuiIslandModule,
-      TuiButtonModule,
-      TuiLabelModule,
-      TuiDataListWrapperModule,
-      TuiSelectModule,
-      TuiDataListModule,
-      ReactiveFormsModule,
-      AudioModule,
-    ]
+  imports: [
+    CommonModule,
+    TuiDataListWrapperModule,
+    TuiSelectModule,
+    TuiToggleModule,
+    TuiIslandModule,
+    TuiButtonModule,
+    TuiLabelModule,
+    TuiDataListWrapperModule,
+    TuiSelectModule,
+    TuiDataListModule,
+    AudioModule,
+    ReactiveFormsModule,
+  ]
 })
 export class SettingsModule { }
