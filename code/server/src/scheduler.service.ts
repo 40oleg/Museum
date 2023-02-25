@@ -46,7 +46,7 @@ export class SchedulerService {
     }
 
     private setRandomPainting() {
-        setWallpaper(`C:/wallpapers/${Math.floor(Math.random()*30)}.jpg`)
+        setWallpaper(`./wallpapers/${Math.floor(Math.random()*3)}.png`)
     }
 
 

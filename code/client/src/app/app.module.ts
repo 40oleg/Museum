@@ -12,11 +12,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { SettingsModule } from "./settings/settings.module";
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
+import { PaintingFrameComponent } from './painting-frame/painting-frame.component';
+import { TuiIslandModule } from "@taiga-ui/kit";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PaintingFrameComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,7 @@ import {HttpClientModule} from "@angular/common/http";
     TuiModeModule,
     SettingsModule,
     HttpClientModule,
+    TuiIslandModule,
   ],
   providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]
