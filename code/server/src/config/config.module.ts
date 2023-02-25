@@ -9,5 +9,6 @@ import {Interval} from "./interval.entity.js";
     imports: [TypeOrmModule.forFeature([Configuration, Interval])],
     controllers: [ConfigController],
     providers: [ConfigService],
+    exports: [ConfigService],
 })
 export class ConfigModule {}

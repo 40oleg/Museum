@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller.js';
-import {ConfigModule} from "./config/config.module.js";
-import { WallpaperModule } from './wallpaper/wallpaper.module.js';
-import {TypeOrmModule} from "@nestjs/typeorm";
-import {Configuration} from "./config/config.entity.js";
-import {Interval} from "./config/interval.entity.js";
+import {ConfigModule} from './config/config.module.js';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {Configuration} from './config/config.entity.js';
+import {Interval} from './config/interval.entity.js';
+import { SchedulerService } from './scheduler.service.js';
 
 @Module({
   imports: [
@@ -18,9 +18,8 @@ import {Interval} from "./config/interval.entity.js";
       ],
     }),
     ConfigModule,
-    WallpaperModule
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [SchedulerService],
 })
 export class AppModule {}
