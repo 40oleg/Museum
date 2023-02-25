@@ -11,20 +11,17 @@ import {ChangePeriods} from "../../enums/ChangePeriods.enum";
   providedIn: 'root'
 })
 export class ConfigurationApiService {
-  private host = 'http://localhost/api/configuration';
+  private host = 'http://localhost:4200/api/config';
 
   constructor(
     private readonly httpService: HttpClient,
   ) {}
 
   getConfig(): Observable<unknown> {
-    return new Observable<unknown>((subscriber) => {
-      subscriber.next({changeInterval: ChangePeriods[5], enabledCarousel: true})
-    })
     return this.httpService.get(this.host);
   }
 
-  setConfig(config: any): Observable<unknown> {
+  saveConfig(config: any): Observable<unknown> {
     return this.httpService.post(this.host, config);
   }
 }
