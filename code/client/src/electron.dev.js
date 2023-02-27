@@ -8,7 +8,7 @@ const {exec} = require("child_process");
 let win;
 
 const createWindow = () => {
-  exec('node C:/Users/enigm/Desktop/Museum/code/server/dist/main.js');
+  exec('node "C:/Users/enigm/Desktop/Museum/code/server/dist/main.js"');
   // set timeout to render the window not until the Angular
   // compiler is ready to show the project
   setTimeout(() => {
