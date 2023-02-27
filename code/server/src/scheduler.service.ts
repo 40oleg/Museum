@@ -64,6 +64,7 @@ export class SchedulerService {
 
 
     compareConfigs(configA, configB) {
+        if (!(configA && configB)) return false;
         return configA.id === configB.id;
     }
 }
