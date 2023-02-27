@@ -2,21 +2,30 @@
   <tui-island
     size="l">
     <div class="tui-island__content">
-      <form>
+      <form [formGroup]="configurationGroup">
         <h2>Настройки Museum</h2>
-          <label
-            class="tui-l"
-            tuiLabel="Включить приложение">
+          <div class="make-row">
+            <label
+              class="label-custom"
+              tuiLabel="Включить приложение:">
+            </label>
             <tui-toggle
-              formControlName="testValue5"
+              formControlName="enabledCarousel"
               size="l"
               [showIcons]="true"
+              [tuiHint]="enableApp"
+              tuiHintDirection="right-top"
             ></tui-toggle>
-          </label>
+            <ng-template #enableApp>
+              <div>Когда приложение будет</div>
+              <div>включено, ваши обои начнут</div>
+              <div>меняться с указаной периодичность</div>
+            </ng-template>
+          </div>
         <tui-select
           class="mt"
           tuiTextfieldSize="l"
-          [formControl]="changeIntervalControl"
+          formControlName="changeInterval"
           [valueContent]="itemContent">
           Интервал смены картины
           <input
@@ -31,10 +40,11 @@
         </tui-select>
 
         <ng-template #itemContent let-item>
-          {{item.uiName}}
+          {{getUiName(item)}}
         </ng-template>
 
         <button
+          (click)="saveConfiguration()"
           class="tui-island__footer-button"
           tuiButton
           type="button">Сохранить</button>
