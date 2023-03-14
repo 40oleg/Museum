@@ -1,0 +1,70 @@
+{
+  "name": "angular-cli-electron",
+  "productName": "Angular CLI + Electron",
+  "version": "1.0.0",
+  "homepage": "./",
+  "description": "Angular CLI + Electron",
+  "main": "electron.prod.js",
+  "author": {
+    "name": "40oleg",
+    "email": "oleg.merkulov701@gmail.com"
+  },
+  "license": "MIT",
+  "build": {
+    "appId": "com.electron.exchange.stream",
+    "productName": "Accurate",
+    "copyright": "Copyright",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "assets/icon.icns",
+      "target": [
+        "zip",
+        "dmg"
+      ],
+      "publish": [
+        "github"
+      ]
+    },
+    "win": {
+      "publisherName": "Trinity InfoSystem",
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ]
+    },
+    "dmg": {
+      "background": "assets/background.png",
+      "icon": "assets/icon.icns",
+      "title": "Accurate Installer"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/icon.ico",
+      "installerSidebar": "assets/sidebar.bmp",
+      "uninstallerSidebar": "assets/sidebar.bmp",
+      "license": "assets/agreement.html",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "vkiranmaniya",
+        "repo": "accurate",
+        "vPrefixedTagName": true,
+        "private": true,
+        "releaseType": "draft"
+      }
+    ]
+  }
+}
