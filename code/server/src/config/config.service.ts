@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import { Repository} from "typeorm";
-import {Configuration} from "./config.entity.js";
-import {Interval} from "./interval.entity.js";
+import {Configuration} from "./config.entity";
+import {Interval} from "./interval.entity";
 
 @Injectable()
 export class ConfigService {

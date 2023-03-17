@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import {interval, Subject, takeUntil, timer} from "rxjs";
 import {setWallpaper} from "wallpaper";
-import {ConfigService} from "./config/config.service.js";
-import os from 'os';
+import {ConfigService} from "./config/config.service";
+import * as os from 'os';
 
 @Injectable()
 export class SchedulerService {
@@ -49,16 +49,16 @@ export class SchedulerService {
 
     private setRandomPainting() {
         return new Promise((res, rej) => {
-            setWallpaper(`./assets/wallpapers/${Math.floor(Math.random() * 3)}.png`).then(() => res(null))
+            // setWallpaper(`./assets/wallpapers/${Math.floor(Math.random() * 3)}.png`).then(() => res(null))
         });
     }
 
     private setDefaultOSWallpaper() {
         return new Promise((res, rej) => {
             const osName = os.platform();
-            if(osName === 'win32') setWallpaper('./assets/standard/windows.jpg').then(() => res(null))
-            if(osName === 'darwin') setWallpaper('./assets/standard/mac.jpg').then(() => res(null))
-            if(osName === 'linux') setWallpaper('./assets/standard/linux.jpg').then(() => res(null))
+            // if(osName === 'win32') setWallpaper('./assets/standard/windows.jpg').then(() => res(null))
+            // if(osName === 'darwin') setWallpaper('./assets/standard/mac.jpg').then(() => res(null))
+            // if(osName === 'linux') setWallpaper('./assets/standard/linux.jpg').then(() => res(null))
         })
     }
 

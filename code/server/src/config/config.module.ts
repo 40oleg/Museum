@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import {ConfigService} from "./config.service.js";
-import {ConfigController} from "./config.controller.js";
+import {ConfigService} from "./config.service";
+import {ConfigController} from "./config.controller";
 import {TypeOrmModule} from "@nestjs/typeorm";
-import {Configuration} from "./config.entity.js";
-import {Interval} from "./interval.entity.js";
+import {Configuration} from "./config.entity";
+import {Interval} from "./interval.entity";
 
 @Module({
     imports: [TypeOrmModule.forFeature([Configuration, Interval])],
