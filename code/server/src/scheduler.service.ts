@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {interval, Subject, takeUntil, timer} from "rxjs";
-import {setWallpaper} from "wallpaper";
+import {set} from "wallpaper";
 import {ConfigService} from "./config/config.service";
 import * as os from 'os';
 
@@ -19,6 +19,7 @@ export class SchedulerService {
                 await this.runScheduler();
                 interval(15000).subscribe(async () => {
                     const config = await this.configService.getConfiguration();
+                    console.log(this.lastConfig, config)
                     if(!this.compareConfigs(this.lastConfig, config)) {
                         this.lastConfig = await this.configService.getConfiguration();
                         await this.runScheduler();
@@ -28,6 +29,7 @@ export class SchedulerService {
     }
 
     private async stopScheduler() {
+        console.log('set default')
         await this.setDefaultOSWallpaper();
         this.destroyScheduler$.next(null);
     }
@@ -43,22 +45,23 @@ export class SchedulerService {
                 takeUntil(this.destroyScheduler$)
             )
             .subscribe(() => {
-                this.setRandomPainting();
+                this.setRandomPainting().then(data => console.log(data)).catch(err => console.log(err));
             });
     }
 
     private setRandomPainting() {
+        console.log('set random painting')
         return new Promise((res, rej) => {
-            // setWallpaper(`./assets/wallpapers/${Math.floor(Math.random() * 3)}.png`).then(() => res(null))
+            set(`c:/users/enigm/Desktop/Museum/code/server/assets/wallpapers/${Math.floor(Math.random() * 3)}.png`).then(() => res(null)).catch((err) => console.log(err))
         });
     }
 
     private setDefaultOSWallpaper() {
         return new Promise((res, rej) => {
             const osName = os.platform();
-            // if(osName === 'win32') setWallpaper('./assets/standard/windows.jpg').then(() => res(null))
-            // if(osName === 'darwin') setWallpaper('./assets/standard/mac.jpg').then(() => res(null))
-            // if(osName === 'linux') setWallpaper('./assets/standard/linux.jpg').then(() => res(null))
+            if(osName === 'win32') set('./assets/standard/windows.jpg').then(() => res(null)).catch(err => console.log(err))
+            if(osName === 'darwin') set('./assets/standard/mac.jpg').then(() => res(null)).catch(err => console.log(err))
+            if(osName === 'linux') set('./assets/standard/linux.jpg').then(() => res(null)).catch(err => console.log(err))
         })
     }
 
