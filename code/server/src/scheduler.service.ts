@@ -4,6 +4,12 @@ import {set} from "wallpaper";
 import {ConfigService} from "./config/config.service";
 import * as os from 'os';
 
+import * as path from "path";
+
+const fs = require('fs')
+
+
+
 @Injectable()
 export class SchedulerService {
 
@@ -51,15 +57,36 @@ export class SchedulerService {
 
     private setRandomPainting() {
         console.log('set random painting')
+        console.log(__dirname)
         return new Promise((res, rej) => {
-            set(`c:/users/enigm/Desktop/Museum/code/server/assets/wallpapers/${Math.floor(Math.random() * 3)}.png`).then(() => res(null)).catch((err) => console.log(err))
+            set(path.join(__dirname,`/assets/wallpapers/${Math.floor(Math.random() * 3)}.png`)).then(() => res(null)).catch((err) => console.log(err))
         });
     }
 
     private setDefaultOSWallpaper() {
+        if (fs.existsSync(path.join(__dirname, '/node_modules'))) {
+            console.log(path.join(__dirname, '/node_modules'));
+            console.log('modules exists')
+        } else {
+            console.log('modules doesnt exist')
+        }
+
+        if (fs.existsSync(path.join(__dirname, '/node_modules\\wallpaper\\source\\windows-wallpaper.exe'))) {
+            console.log(path.join(__dirname, '/node_modules\\wallpaper\\source\\windows-wallpaper.exe'))
+            console.log('exe exists')
+        } else {
+            console.log('exe doesnt exist')
+        }
+
+        if (fs.existsSync(path.join(__dirname, '/assets/standard/windows.jpg'))) {
+            console.log(path.join(__dirname, '/assets/standard/windows.jpg'))
+            console.log('jpg exists')
+        } else {
+            console.log('jpg doesnt exist')
+        }
         return new Promise((res, rej) => {
             const osName = os.platform();
-            if(osName === 'win32') set('./assets/standard/windows.jpg').then(() => res(null)).catch(err => console.log(err))
+            if(osName === 'win32') set(path.join(__dirname, '/assets/standard/windows.jpg')).then(() => res(null)).catch(err => console.log(err))
             if(osName === 'darwin') set('./assets/standard/mac.jpg').then(() => res(null)).catch(err => console.log(err))
             if(osName === 'linux') set('./assets/standard/linux.jpg').then(() => res(null)).catch(err => console.log(err))
         })
