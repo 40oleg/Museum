@@ -71,8 +71,8 @@ export class SchedulerService {
             console.log('modules doesnt exist')
         }
 
-        if (fs.existsSync(path.join(__dirname, '/node_modules\\wallpaper\\source\\windows-wallpaper.exe'))) {
-            console.log(path.join(__dirname, '/node_modules\\wallpaper\\source\\windows-wallpaper.exe'))
+        if (fs.existsSync(path.join(__dirname, '\\\\node_modules\\wallpaper\\\\source\\\\win-wallpaper.exe'))) {
+            console.log(path.join(__dirname, '\\\\node_modules\\\\wallpaper\\\\source\\\\win-wallpaper.exe'))
             console.log('exe exists')
         } else {
             console.log('exe doesnt exist')
