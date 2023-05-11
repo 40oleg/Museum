@@ -5,8 +5,8 @@
   "main": "./src/electron.prod.js",
   "description": "My Electron application description",
   "author": {
-    "name": "hanahana",
-    "email": "enigma597@mail.ru"
+    "name": "40oleg",
+    "email": "oleg.merkulov701@gmail.com"
   },
   "scripts": {
     "ng": "ng",
