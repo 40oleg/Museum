@@ -14,4 +14,7 @@ export class Configuration implements IConfiguration {
         cascade: true,
     })
     changeInterval: Interval;
+
+    @Column()
+    lastChangeTimestamp: number;
 }
