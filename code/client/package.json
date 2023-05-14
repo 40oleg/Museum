@@ -18,10 +18,10 @@
     "start-electron-prod": "electron ./src/electron.prod",
     "electron": "electron ./src/electron.dev",
     "start-electron": "concurrently \"ng serve\" \"npm run electron\"",
-    "package:win": "npm ci && npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=win32 --arch=all --overwrite -p ",
-    "package:linux": "npm ci && npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=linux --arch=all --overwrite ",
-    "package:osx": "npm ci && npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=darwin --arch=all --overwrite ",
-    "package:all": "npm ci && npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --all --arch=all --overwrite "
+    "package:win": "npm install && npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=win32 --arch=all --overwrite -p ",
+    "package:linux": "npm install && npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=linux --arch=all --overwrite ",
+    "package:osx": "npm install && npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --platform=darwin --arch=all --overwrite ",
+    "package:all": "npm install && npm run build && cross-var electron-packager dist/museum-web-client $npm_package_name-$npm_package_version --out=packages --all --arch=all --overwrite "
   },
   "private": true,
   "dependencies": {

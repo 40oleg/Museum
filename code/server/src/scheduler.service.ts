@@ -35,7 +35,6 @@ export class SchedulerService {
     }
 
     private async stopScheduler() {
-        console.log('set default')
         await this.setDefaultOSWallpaper();
         this.destroyScheduler$.next(null);
     }
@@ -56,34 +55,13 @@ export class SchedulerService {
     }
 
     private setRandomPainting() {
-        console.log('set random painting')
-        console.log(__dirname)
+        const imagePath = path.join(__dirname,`/assets/wallpapers/${Math.floor(Math.random() * 3)}.png`);
         return new Promise((res, rej) => {
-            set(path.join(__dirname,`/assets/wallpapers/${Math.floor(Math.random() * 3)}.png`)).then(() => res(null)).catch((err) => console.log(err))
+            set(imagePath).then(() => res(null)).catch((err) => console.log(err))
         });
     }
 
     private setDefaultOSWallpaper() {
-        if (fs.existsSync(path.join(__dirname, '/node_modules'))) {
-            console.log(path.join(__dirname, '/node_modules'));
-            console.log('modules exists')
-        } else {
-            console.log('modules doesnt exist')
-        }
-
-        if (fs.existsSync(path.join(__dirname, '\\\\node_modules\\wallpaper\\\\source\\\\win-wallpaper.exe'))) {
-            console.log(path.join(__dirname, '\\\\node_modules\\\\wallpaper\\\\source\\\\win-wallpaper.exe'))
-            console.log('exe exists')
-        } else {
-            console.log('exe doesnt exist')
-        }
-
-        if (fs.existsSync(path.join(__dirname, '/assets/standard/windows.jpg'))) {
-            console.log(path.join(__dirname, '/assets/standard/windows.jpg'))
-            console.log('jpg exists')
-        } else {
-            console.log('jpg doesnt exist')
-        }
         return new Promise((res, rej) => {
             const osName = os.platform();
             if(osName === 'win32') set(path.join(__dirname, '/assets/standard/windows.jpg')).then(() => res(null)).catch(err => console.log(err))

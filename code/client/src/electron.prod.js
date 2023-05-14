@@ -1,14 +1,12 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
-const {exec} = require("child_process");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
 const createWindow = () => {
-  exec('node C:/Users/enigm/Desktop/Museum/code/server/dist/main.js');
   // Create the browser window.
   win = new BrowserWindow({
     width: 800,
