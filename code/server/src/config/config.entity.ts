@@ -17,4 +17,14 @@ export class Configuration implements IConfiguration {
 
     @Column()
     lastChangeTimestamp: number;
+
+    @Column({
+        nullable: true
+    })
+    userImage: string;
+    constructor() {
+        this.enabledCarousel = false;
+        this.changeInterval = new Interval();
+        this.lastChangeTimestamp = Date.now();
+    }
 }

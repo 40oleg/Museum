@@ -11,4 +11,8 @@ export class Interval implements IInterval {
 
     @Column()
     timestamp: number;
+    constructor() {
+        this.name = 'empty';
+        this.timestamp = 10000;
+    }
 }

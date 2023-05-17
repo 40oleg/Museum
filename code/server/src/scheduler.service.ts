@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { filter, interval, Subject, switchMap } from "rxjs";
+import { filter, Subject, switchMap, timer } from "rxjs";
 import { set } from "wallpaper";
 import { ConfigService } from "./config/config.service";
-import * as os from 'os';
 import * as path from "path";
+import { IConfiguration } from "./interfaces/configuration.interface";
+import { Configuration } from "./config/config.entity";
 
 
 
@@ -15,18 +16,31 @@ export class SchedulerService {
         private readonly configService: ConfigService,
     ) {
         this.destroyScheduler$ = new Subject();
-        interval(10000)
+        this.configService.getConfiguration().then((config) => {
+            if(!config) {
+                this.configService.saveConfiguration(new Configuration());
+            }
+        })
+        this.runMonitorWallpaperChangingEnabled(10000);
+    }
+
+    private runMonitorWallpaperChangingEnabled(recheckTime: number) {
+        timer(500, recheckTime)
             .pipe(
                 switchMap(() => this.configService.getConfiguration()),
-                filter(el => el?.enabledCarousel),
+                filter(config => config?.enabledCarousel),
             )
             .subscribe((config) => {
                 if(config.lastChangeTimestamp < Date.now() - config.changeInterval.timestamp) {
                     this.setRandomPainting();
-                    config.lastChangeTimestamp = Date.now();
-                    this.configService.saveConfiguration(config);
+                    this.refreshChangeTime(config);
                 }
             })
+    }
+
+    private refreshChangeTime(config: IConfiguration) {
+        config.lastChangeTimestamp = Date.now();
+        this.configService.saveConfiguration(config);
     }
 
     private setRandomPainting() {
@@ -34,20 +48,5 @@ export class SchedulerService {
         return new Promise((res, rej) => {
             set(imagePath).then(() => res(null)).catch((err) => console.log(err))
         });
-    }
-
-    private setDefaultOSWallpaper() {
-        return new Promise((res, rej) => {
-            const osName = os.platform();
-            if(osName === 'win32') set(path.join(__dirname, '/assets/standard/windows.jpg')).then(() => res(null)).catch(err => console.log(err))
-            if(osName === 'darwin') set('./assets/standard/mac.jpg').then(() => res(null)).catch(err => console.log(err))
-            if(osName === 'linux') set('./assets/standard/linux.jpg').then(() => res(null)).catch(err => console.log(err))
-        })
-    }
-
-
-    compareConfigs(configA, configB) {
-        if (!(configA && configB)) return false;
-        return configA.id === configB.id;
     }
 }
