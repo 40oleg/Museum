@@ -5,9 +5,9 @@ const bold = font2base64.encodeToDataUrlSync('./fonts/Manrope-Bold.ttf')
 const extrabold = font2base64.encodeToDataUrlSync('./fonts/Manrope-ExtraBold.ttf')
 
 
-module.exports = (imgBase64, art, author, name, year) => {
+module.exports = (imgBase64, art, author, name, year, sequenceNumber) => {
     return {
-        output: `./results/${Math.random()}.jpg`,
+        output: `./results/${sequenceNumber}.jpg`,
             quality: 4000,
         content: {imageSource: imgBase64},
         html: `

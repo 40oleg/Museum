@@ -5,6 +5,7 @@ import { ConfigService } from "./config/config.service";
 import * as path from "path";
 import { IConfiguration } from "./interfaces/configuration.interface";
 import { Configuration } from "./config/config.entity";
+import * as fs from "fs";
 
 
 
@@ -44,9 +45,17 @@ export class SchedulerService {
     }
 
     private setRandomPainting() {
-        const imagePath = path.join(__dirname,`/assets/wallpapers/${Math.floor(Math.random() * 3)}.png`);
-        return new Promise((res, rej) => {
-            set(imagePath).then(() => res(null)).catch((err) => console.log(err))
+        const wallpapersDirectory = path.join(__dirname,`/assets/wallpapers/`);
+        fs.readdir(wallpapersDirectory, (err, files) => {
+            if(err) {
+                console.log(err)
+                return;
+            }
+            const countWallpapers = files.length;
+            const imagePath = path.join(wallpapersDirectory,`${Math.floor(Math.random() * countWallpapers)}.jpg`);
+            return new Promise((res, rej) => {
+                set(imagePath).then(() => res(null)).catch((err) => console.log(err))
+            });
         });
     }
 }
