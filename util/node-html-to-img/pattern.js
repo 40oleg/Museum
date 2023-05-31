@@ -44,7 +44,7 @@ module.exports = (imgBase64, art, author, name, year, sequenceNumber) => {
         position: fixed;
         right: 2vw;
         bottom: 3vw;
-        width: 35vw;
+        max-width: 35vw;
         padding: 1vw;
         border: 1px #686967 solid;
         border-radius: 1.5vw;
@@ -56,7 +56,6 @@ module.exports = (imgBase64, art, author, name, year, sequenceNumber) => {
         font-size: 0.8vw;
         font-family: Manrope;
     }
-    
     
     .card__artist  {
         color: #e3e3e3;
@@ -80,7 +79,9 @@ module.exports = (imgBase64, art, author, name, year, sequenceNumber) => {
     }
     
     .card__image {
-        width: 100%;
+        min-width: 27vw;
+        max-width: 100%;
+        max-height: 95vh;
         border-radius: 1vw;
         margin-top: 1.8vw;
     }
