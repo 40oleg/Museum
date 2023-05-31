@@ -7,7 +7,6 @@ let paintingSequenceNumber = 0;
 (async () => {
 
     const PAINTINGS = JSON.parse(fs.readFileSync('./paintings/paintings.json').toString());
-
     console.time('createPaintings')
     for (const item of PAINTINGS) {
         const image = fs.readFileSync(`./paintings/${item.file}`);
