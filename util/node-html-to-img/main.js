@@ -6,10 +6,10 @@ let paintingSequenceNumber = 0;
 
 (async () => {
     const PAINTINGS = JSON.parse(fs.readFileSync('./paintings/paintings.json').toString());
-
+    console.time('start')
     while(PAINTINGS.length) {
         console.log(PAINTINGS.length)
-        const batch = PAINTINGS.splice(0, 5);
+        const batch = PAINTINGS.splice(0, 7);
         const allPromises = [];
         for (const item of batch) {
             const image = fs.readFileSync(`./paintings/${item.file}`);
@@ -20,4 +20,5 @@ let paintingSequenceNumber = 0;
         }
         await Promise.all(allPromises);
     }
+    console.timeEnd('start')
 })()
