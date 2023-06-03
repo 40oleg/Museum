@@ -11,12 +11,17 @@ const createWindow = () => {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: path.join(__dirname, 'favicon.ico'),
+    icon: path.join(__dirname, './assets/icons/app-icon.png'),
+    title: 'Museum',
+    webPreferences: {
+      devTools: false,
+    }
   });
+  win.removeMenu();
 
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, './index.html'),
     protocol: 'file:',
     slashes: true
   }));
