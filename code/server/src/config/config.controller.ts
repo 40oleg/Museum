@@ -1,10 +1,9 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
-import {ConfigService} from "./config.service.js";
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ConfigService } from './config.service.js';
 
 @Controller('api/config')
 export class ConfigController {
-    constructor(private readonly configService: ConfigService) {
-    }
+    constructor(private readonly configService: ConfigService) {}
 
     @Get('')
     getConfiguration() {
@@ -12,7 +11,7 @@ export class ConfigController {
     }
 
     @Post('')
-    saveConfiguration(@Body() config)  {
+    saveConfiguration(@Body() config) {
         return this.configService.saveConfiguration(config);
     }
 }

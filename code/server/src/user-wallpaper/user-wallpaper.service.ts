@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import {getWallpaper, setWallpaper} from "wallpaper";
-import fs from "fs";
-import {ConfigService} from "../config/config.service.js";
+import { getWallpaper, setWallpaper } from 'wallpaper';
+import fs from 'fs';
+import { ConfigService } from '../config/config.service.js';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -11,8 +11,8 @@ const __dirname = dirname(__filename);
 
 @Injectable()
 export class UserWallpaperService {
-    constructor(private readonly configService: ConfigService) {
-    }
+    constructor(private readonly configService: ConfigService) {}
+
     async saveUserWallpaper() {
         const userWallpaperPath = await getWallpaper();
         return new Promise((res, rej) => {
@@ -21,22 +21,24 @@ export class UserWallpaperService {
                     rej(err);
                     return;
                 }
-                this.configService.getConfiguration()
+                this.configService
+                    .getConfiguration()
                     .then((config) => {
                         config.userImage = data.toString('base64');
-                        this.configService.saveConfiguration(config)
+                        this.configService
+                            .saveConfiguration(config)
                             .then(() => {
                                 res(true);
                             })
                             .catch((err) => {
                                 rej(err);
-                            })
+                            });
                     })
                     .catch((err) => {
-                        rej(err)
+                        rej(err);
                     });
             });
-        })
+        });
     }
 
     async setUserWallpaper() {
@@ -44,7 +46,7 @@ export class UserWallpaperService {
             this.configService.getConfiguration().then((config) => {
                 const buffer = Buffer.from(config.userImage, 'base64');
                 fs.writeFile('./tmp.jpg', buffer, (err) => {
-                    if(err) {
+                    if (err) {
                         rej(err);
                         return;
                     }
@@ -54,10 +56,9 @@ export class UserWallpaperService {
                         })
                         .catch((error) => {
                             rej(error);
-                        })
+                        });
                 });
-            })
-        })
+            });
+        });
     }
-
 }

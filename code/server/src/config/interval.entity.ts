@@ -1,5 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
-import {IInterval} from "../interfaces/configuration.interface.js";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IInterval } from '../interfaces/configuration.interface.js';
 
 @Entity()
 export class Interval implements IInterval {
@@ -11,6 +11,7 @@ export class Interval implements IInterval {
 
     @Column()
     timestamp: number;
+
     constructor() {
         this.name = 'empty';
         this.timestamp = 10000;

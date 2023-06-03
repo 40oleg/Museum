@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './settings.component';
-import {TuiDataListWrapperModule, TuiIslandModule, TuiSelectModule, TuiToggleModule} from "@taiga-ui/kit";
-import {TuiButtonModule, TuiDataListModule, TuiHintModule, TuiLabelModule} from "@taiga-ui/core";
-import {ReactiveFormsModule} from "@angular/forms";
-import {AudioModule} from "../audio/audio.module";
-
-
+import {
+    TuiDataListWrapperModule,
+    TuiIslandModule,
+    TuiSelectModule,
+    TuiToggleModule,
+} from '@taiga-ui/kit';
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiHintModule,
+    TuiLabelModule,
+} from '@taiga-ui/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AudioModule } from '../audio/audio.module';
 
 @NgModule({
-    declarations: [
-        SettingsComponent
-    ],
-    exports: [
-        SettingsComponent
-    ],
+    declarations: [SettingsComponent],
+    exports: [SettingsComponent],
     imports: [
         CommonModule,
         TuiDataListWrapperModule,
@@ -29,6 +33,6 @@ import {AudioModule} from "../audio/audio.module";
         AudioModule,
         ReactiveFormsModule,
         TuiHintModule,
-    ]
+    ],
 })
-export class SettingsModule { }
+export class SettingsModule {}

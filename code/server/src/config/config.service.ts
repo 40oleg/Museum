@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import {InjectRepository} from "@nestjs/typeorm";
-import { Repository} from "typeorm";
-import {Configuration} from "./config.entity.js";
-import {Interval} from "./interval.entity.js";
-import {IConfiguration} from "../interfaces/configuration.interface.js";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Configuration } from './config.entity.js';
+import { Interval } from './interval.entity.js';
+import { IConfiguration } from '../interfaces/configuration.interface.js';
 
 @Injectable()
 export class ConfigService {
@@ -15,10 +15,11 @@ export class ConfigService {
     ) {}
 
     getConfiguration(): Promise<Configuration> {
-        return this.configurationRepository.createQueryBuilder('configuration')
-                .leftJoinAndSelect('configuration.changeInterval', 'interval')
-                .orderBy('configuration.id','DESC')
-                .getOne();
+        return this.configurationRepository
+            .createQueryBuilder('configuration')
+            .leftJoinAndSelect('configuration.changeInterval', 'interval')
+            .orderBy('configuration.id', 'DESC')
+            .getOne();
     }
 
     saveConfiguration(config: IConfiguration) {

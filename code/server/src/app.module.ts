@@ -9,19 +9,16 @@ import { UserWallpaperController } from './user-wallpaper/user-wallpaper.control
 import { UserWallpaperService } from './user-wallpaper/user-wallpaper.service.js';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: './museum_db',
-      synchronize: true,
-      entities: [
-        Configuration,
-        Interval,
-      ],
-    }),
-    ConfigModule,
-  ],
-  controllers: [AppController, UserWallpaperController],
-  providers: [SchedulerService, UserWallpaperService],
+    imports: [
+        TypeOrmModule.forRoot({
+            type: 'sqlite',
+            database: './museum_db',
+            synchronize: true,
+            entities: [Configuration, Interval],
+        }),
+        ConfigModule,
+    ],
+    controllers: [AppController, UserWallpaperController],
+    providers: [SchedulerService, UserWallpaperService],
 })
 export class AppModule {}

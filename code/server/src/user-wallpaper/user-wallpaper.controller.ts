@@ -1,13 +1,13 @@
-import {Controller, Post} from '@nestjs/common';
-import {UserWallpaperService} from "./user-wallpaper.service.js";
+import { Controller, Post } from '@nestjs/common';
+import { UserWallpaperService } from './user-wallpaper.service.js';
 
 @Controller('user-wallpaper')
 export class UserWallpaperController {
-    constructor(private readonly userWallpaperService: UserWallpaperService) {
-    }
+    constructor(private readonly userWallpaperService: UserWallpaperService) {}
+
     @Post('save')
     saveUserWallpaper() {
-       this.userWallpaperService.saveUserWallpaper();
+        this.userWallpaperService.saveUserWallpaper();
     }
 
     @Post('set')

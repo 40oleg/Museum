@@ -1,24 +1,24 @@
 export interface IConfiguration {
-  /** Unique identifier */
-  id: number;
+    /** Unique identifier */
+    id: number;
 
-  /** Is wallpaper changing active */
-  enabledCarousel: boolean;
+    /** Is wallpaper changing active */
+    enabledCarousel: boolean;
 
-  /** Interval of changing wallpaper (watch interface IInterval) */
-  changeInterval: IInterval;
+    /** Interval of changing wallpaper (watch interface IInterval) */
+    changeInterval: IInterval;
 
-  /** The last time changing of wallpaper by scheduler */
-  lastChangeTimestamp: number;
+    /** The last time changing of wallpaper by scheduler */
+    lastChangeTimestamp: number;
 }
 
 export interface IInterval {
-  /** Unique identifier */
-  id: number;
+    /** Unique identifier */
+    id: number;
 
-  /** Name of interval for clarity in development */
-  name: string;
+    /** Name of interval for clarity in development */
+    name: string;
 
-  /** Time after wallpaper changing */
-  timestamp: number;
+    /** Time after wallpaper changing */
+    timestamp: number;
 }
