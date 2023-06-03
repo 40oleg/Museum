@@ -1,5 +1,5 @@
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
-import {IInterval} from "../interfaces/configuration.interface";
+import {IInterval} from "../interfaces/configuration.interface.js";
 
 @Entity()
 export class Interval implements IInterval {

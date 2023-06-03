@@ -1,5 +1,5 @@
 import {Controller, Post} from '@nestjs/common';
-import {UserWallpaperService} from "./user-wallpaper.service";
+import {UserWallpaperService} from "./user-wallpaper.service.js";
 
 @Controller('user-wallpaper')
 export class UserWallpaperController {

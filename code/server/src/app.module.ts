@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { ConfigModule } from './config/config.module';
+import { AppController } from './app.controller.js';
+import { ConfigModule } from './config/config.module.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Configuration } from './config/config.entity';
-import { Interval } from './config/interval.entity';
-import { SchedulerService } from './scheduler.service';
-import { UserWallpaperController } from './user-wallpaper/user-wallpaper.controller';
-import { UserWallpaperService } from './user-wallpaper/user-wallpaper.service';
+import { Configuration } from './config/config.entity.js';
+import { Interval } from './config/interval.entity.js';
+import { SchedulerService } from './scheduler.service.js';
+import { UserWallpaperController } from './user-wallpaper/user-wallpaper.controller.js';
+import { UserWallpaperService } from './user-wallpaper/user-wallpaper.service.js';
 
 @Module({
   imports: [

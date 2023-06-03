@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { filter, Subject, switchMap, timer } from "rxjs";
-import { set } from "wallpaper";
-import { ConfigService } from "./config/config.service";
+import { setWallpaper } from "wallpaper";
+import { ConfigService } from "./config/config.service.js";
 import * as path from "path";
-import { IConfiguration } from "./interfaces/configuration.interface";
-import { Configuration } from "./config/config.entity";
+import { IConfiguration } from "./interfaces/configuration.interface.js";
+import { Configuration } from "./config/config.entity.js";
 import * as fs from "fs";
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
 @Injectable()
@@ -54,7 +59,7 @@ export class SchedulerService {
             const countWallpapers = files.length;
             const imagePath = path.join(wallpapersDirectory,`${Math.floor(Math.random() * countWallpapers)}.jpg`);
             return new Promise((res, rej) => {
-                set(imagePath).then(() => res(null)).catch((err) => console.log(err))
+                setWallpaper(imagePath).then(() => res(null)).catch((err) => console.log(err))
             });
         });
     }

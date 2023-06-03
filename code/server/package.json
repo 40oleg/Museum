@@ -5,7 +5,7 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "build": "nest build && cpx ./src/assets/**/* dist/assets && cpx ./node_modules/**/* dist/node_modules && pkg ./dist/main.js --config ./pkg.json",
     "new-build": "nest build && cpx ./src/assets/**/* dist/assets",
@@ -30,7 +30,7 @@
     "rxjs": "^7.2.0",
     "sqlite3": "^5.1.4",
     "typeorm": "^0.3.12",
-    "wallpaper": "^5.0.1"
+    "wallpaper": "^6.1.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -41,7 +41,6 @@
     "@types/node": "18.11.18",
     "@types/sqlite3": "^3.1.8",
     "@types/supertest": "^2.0.11",
-    "@types/wallpaper": "^2.5.1",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "cpx": "^1.5.0",
