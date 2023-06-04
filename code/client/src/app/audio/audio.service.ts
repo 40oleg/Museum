@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 
+/** Sounds types */
 enum SoundsEnum {
     Success = 'Success',
     Error = 'Error',
 }
 
+/** List of sounds */
 const sounds = {
     [SoundsEnum.Success]: './assets/sounds/bell2.wav',
     [SoundsEnum.Error]: './assets/sounds/error.mp3',
@@ -19,6 +21,7 @@ export class AudioService {
 
     constructor() {}
 
+    /** Play success sound */
     public playSuccess() {
         this.audio.success
             .play()
@@ -26,6 +29,7 @@ export class AudioService {
             .catch((err) => console.log(err));
     }
 
+    /** Play error sound */
     public playError() {
         this.audio.error
             .play()
