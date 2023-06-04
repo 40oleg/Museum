@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "build": "nest build && cpx ./src/assets/**/* dist/assets && cpx ./node_modules/**/* dist/node_modules && pkg ./dist/main.js --config ./pkg.json",
-    "new-build": "nest build && cpx ./src/assets/**/* dist/assets",
+    "new-build": "npm install && nest build && cpx ./src/assets/**/* dist/assets && npm prune --production",
     "format": "prettier --write \\\"src/**/*.ts\\\" \\\"test/**/*.ts\\\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
