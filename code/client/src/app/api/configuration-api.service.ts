@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class ConfigurationApiService {
-    private host = 'http://localhost:4200/api/config';
+    private host = 'http://localhost:4231/api/config';
 
     constructor(private readonly httpService: HttpClient) {}
 
