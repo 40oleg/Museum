@@ -1,10 +1,24 @@
 # Museum
 The aim of the project is to create software that would help to enlighten, interest, involve people who are far away and do not accept it in the study of art by showing works of art on the desktop screensaver and changing them with some frequency.
 
+## Installation
+1) Download the archive suitable for your operating system
+2) Unpack the archive into some directory, for example D:/Museum
+3) Open the startup panel, hold down the win + r keyboard shortcut and write shell:startup in the drop-down window and press Enter
+4) Move the MuseumServer.exe file there
+5) Then move the Museum.exe file to the desktop
+6) Restart your computer
+
+## Removal
+1) Open the startup panel, hold down the win + r keyboard shortcut and write shell:startup in the drop-down window and press Enter
+2) Delete MuseumServer.exe file
+3) Restart your computer
+4) Delete all files from the directory where the archive was unpacked
+5) Delete application's icon on desktop
+
 ## Folder structures
 * code - source code of the application
 * docs - contains documents for this project
-* releases - contains all ready to use released version of the program
 * deprecated - files that are not used
 * util - different additional utils for development
 
