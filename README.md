@@ -22,7 +22,7 @@ The aim of the project is to create software that would help to enlighten, inter
 * Low CPU stress.
 * Low memory consumption.
 * Only Windows 10+ support.
-* Only Russion language (English soon...)
+* Only Russian language (English soon...)
 
 ## Installation
 1) Download the archive suitable for your operating system (currently where is only one archive for win-x64)
