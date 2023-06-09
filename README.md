@@ -1,15 +1,31 @@
 # Museum
 The aim of the project is to create software that would help to enlighten, interest, involve people who are far away and do not accept it in the study of art by showing works of art on the desktop screensaver and changing them with some frequency.
 
-* Application has more than 150 paintings.
+* Application has more than 150 paintings:
+  * Vincent van Gogh
+  * Paul Cezanne
+  * Isaac Levitan
+  * Hieronymus Bosch
+  * Pablo Picasso
+  * Rene Magritte
+  * Wassily Kandinsky
+  * Salvador Dali
+  * Claude Monet
+  * Marc Chagall
+  * Kazimir Malevich
+  * Edouard Manet
+  * Henri Matisse
+  * Rembrandt Harmenszoon van Rijn
+  * Ivan Aivazovsky
 * 7 modes for changing wallpaper.
 * It automatically load after PC starts.
 * Low CPU stress.
 * Low memory consumption.
 * Only Windows 10+ support.
+* Only Russion language (English soon...)
 
 ## Installation
-1) Download the archive suitable for your operating system
+1) Download the archive suitable for your operating system (currently where is only one archive for win-x64)
 2) Unpack the archive into some directory, for example D:/Museum
 3) Open the startup panel, hold down the win + r keyboard shortcut and write shell:startup in the drop-down window and press Enter
 4) Move the ./server/MuseumServer.exe file there
