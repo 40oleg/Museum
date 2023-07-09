@@ -18,7 +18,7 @@ The aim of the project is to create software that would help to enlighten, inter
   * Rembrandt Harmenszoon van Rijn
   * Ivan Aivazovsky
 * 7 modes for changing wallpaper.
-* It automatically load after PC starts.
+* It automatically loads after PC starts.
 * Low CPU stress.
 * Low memory consumption.
 * Only Windows 10+ support.
@@ -27,14 +27,16 @@ The aim of the project is to create software that would help to enlighten, inter
 ## Installation
 1) Download the archive suitable for your operating system (currently where is only one archive for win-x64)
 2) Unpack the archive into some directory, for example D:/Museum
-3) Open the startup panel, hold down the win + r keyboard shortcut and write shell:startup in the drop-down window and press Enter
-4) Move the ./server/MuseumServer.exe file there
-5) Then move the ./client/Museum.exe file to the desktop
-6) Restart your computer
+3) Create shortcut from binary.exe file
+4) Open it's properties and in the "Object" field type "./../your_path/binary.exe boot.js"
+5) Open the startup panel, hold down the win + r keyboard shortcut and write shell:startup in the drop-down window and press Enter
+6) Move shortcut file in this directory
+7) Then move the ./client/Museum.exe file to the desktop
+8) Restart your computer
 
 ## Removal
 1) Open the startup panel, hold down the win + r keyboard shortcut and write shell:startup in the drop-down window and press Enter
-2) Delete MuseumServer.exe file
+2) Delete shortcut file
 3) Restart your computer
 4) Delete all files from the directory where the archive was unpacked
 5) Delete application's icon on desktop
