@@ -212,7 +212,7 @@ try {
         $stagedFile = Join-Path $stage $file
         $destinationFile = Join-Path $destination $file
         if ([IO.File]::Exists($destinationFile)) {
-            [IO.File]::Replace($stagedFile, $destinationFile, $null)
+            [IO.File]::Replace($stagedFile, $destinationFile, [NullString]::Value)
         }
         else {
             [IO.File]::Move($stagedFile, $destinationFile)
