@@ -17,12 +17,16 @@ function Build-Test([string]$name, [switch]$Manifest) {
     return $testExe
 }
 function Invoke-Museum([string]$mode) {
-    $stderr = Join-Path $stage ("stderr-" + [Guid]::NewGuid() + ".txt")
-    $p = Start-Process $museum -ArgumentList $mode -WindowStyle Hidden -PassThru -RedirectStandardError $stderr
+    $startInfo = [Diagnostics.ProcessStartInfo]::new($museum, $mode)
+    $startInfo.UseShellExecute = $false
+    $startInfo.CreateNoWindow = $true
+    $startInfo.RedirectStandardError = $true
+    $p = [Diagnostics.Process]::Start($startInfo)
     try {
+        $errors = $p.StandardError.ReadToEndAsync()
         if (!$p.WaitForExit(30000)) { $p.Kill(); throw "Museum $mode timed out" }
         if ($p.ExitCode -ne 0) {
-            $detail = Get-Content -Raw -LiteralPath $stderr
+            $detail = $errors.GetAwaiter().GetResult()
             throw "Museum $mode exited with $($p.ExitCode). $detail"
         }
     } finally { $p.Dispose() }
@@ -54,9 +58,13 @@ try {
     Invoke-Museum '--install'
     $command = Get-ItemPropertyValue -Path $registry -Name Museum
     if ($command -ne ('"' + $museum + '" --background')) { throw "Incorrect autostart command: $command" }
-    $owner = Start-Process $museum -ArgumentList '--background' -WindowStyle Hidden -PassThru
+    $env:LOCALAPPDATA = Join-Path $stage 'worker-profile'
+    $startInfo = [Diagnostics.ProcessStartInfo]::new($museum, '--background')
+    $startInfo.UseShellExecute = $false
+    $startInfo.CreateNoWindow = $true
+    $owner = [Diagnostics.Process]::Start($startInfo)
     $deadline = [DateTime]::UtcNow.AddSeconds(10)
-    while (!(Test-Path -LiteralPath (Join-Path $runData 'Museum'))) {
+    while (!(Test-Path -LiteralPath (Join-Path $env:LOCALAPPDATA 'Museum'))) {
         if ($owner.HasExited -or [DateTime]::UtcNow -gt $deadline) { throw 'Worker did not start' }
         Start-Sleep -Milliseconds 100
     }
