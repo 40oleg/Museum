@@ -1,0 +1,36 @@
+name: Museum for Windows
+on:
+  push:
+    branches: ['release/v0.0.2-nona']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get the pinned Nona compiler
+        run: |
+          $archive = Join-Path $env:RUNNER_TEMP 'nona.zip'
+          Invoke-WebRequest -UseBasicParsing 'https://github.com/40oleg/nona/releases/download/v0.34.0/nona-0.34.0-win32-x64.zip' -OutFile $archive
+          if ((Get-FileHash $archive).Hash -ne 'D7E224291E072BCA85E00EFF983BF6BAF17318C151CD7E6BEC5B32D151C90F28') { throw 'Nona archive checksum mismatch' }
+          Expand-Archive $archive (Join-Path $env:RUNNER_TEMP 'compiler')
+          $compiler = Get-ChildItem "$env:RUNNER_TEMP/compiler" -Recurse -Filter nona.exe -File
+          "NONA=$($compiler.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Build the portable package
+        run: |
+          $package = Join-Path $env:RUNNER_TEMP 'Музей Museum'
+          ./native/build/Build-Museum.ps1 -Nona $env:NONA -OutputDirectory $package
+          "MUSEUM_PACKAGE=$package" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Exercise the native application on the disposable Windows runner
+        run: ./native/tests/Test-WindowsPackage.ps1 -Nona $env:NONA -Package $env:MUSEUM_PACKAGE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Museum-0.0.2-win-x64
+          path: ${{ env.MUSEUM_PACKAGE }}
+          if-no-files-found: error
