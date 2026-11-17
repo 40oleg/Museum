@@ -17,10 +17,14 @@ function Build-Test([string]$name, [switch]$Manifest) {
     return $testExe
 }
 function Invoke-Museum([string]$mode) {
-    $p = Start-Process $museum -ArgumentList $mode -WindowStyle Hidden -PassThru
+    $stderr = Join-Path $stage ("stderr-" + [Guid]::NewGuid() + ".txt")
+    $p = Start-Process $museum -ArgumentList $mode -WindowStyle Hidden -PassThru -RedirectStandardError $stderr
     try {
         if (!$p.WaitForExit(30000)) { $p.Kill(); throw "Museum $mode timed out" }
-        if ($p.ExitCode -ne 0) { throw "Museum $mode exited with $($p.ExitCode)" }
+        if ($p.ExitCode -ne 0) {
+            $detail = Get-Content -Raw -LiteralPath $stderr
+            throw "Museum $mode exited with $($p.ExitCode). $detail"
+        }
     } finally { $p.Dispose() }
 }
 

@@ -169,7 +169,7 @@ export function installAutostart() {
     const command = `"${process.execPath}" --background`;
     if (command.length > 260) throw new Error("The Museum path is too long for Windows autostart.");
     const out = new Uint8Array(8);
-    const opened = RegCreateKeyExW(HKEY_CURRENT_USER, RUN_KEY, 0, 0, 0, KEY_SET_VALUE, 0, out, 0);
+    const opened = RegCreateKeyExW(HKEY_CURRENT_USER, RUN_KEY, 0, null, 0, KEY_SET_VALUE, null, out, null);
     if (opened !== ERROR_SUCCESS) throw new Error(`Cannot open the Windows Run key (${opened}).`);
     const key = readHandle(out);
     try {
