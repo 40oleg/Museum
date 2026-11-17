@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -67,35 +68,56 @@ public static class MuseumDialogSmoke {
         if (!PostMessage(window, 1024 + message, (IntPtr)id, IntPtr.Zero))
             throw new Exception("Could not drive the task dialog.");
     }
-    public static void Run(string exe) {
+    private static ProcessInfo Start(string exe, string name) {
+        var startup = new StartupInfo();
+        startup.size = Marshal.SizeOf(startup);
+        startup.desktop = name;
+        ProcessInfo info;
+        if (!CreateProcess(exe, null, IntPtr.Zero, IntPtr.Zero, false, 0x08000000, IntPtr.Zero,
+            null, ref startup, out info)) throw new Win32Exception();
+        return info;
+    }
+    private static void CloseProcess(ProcessInfo info) {
+        if (WaitForSingleObject(info.process, 0) != 0) {
+            TerminateProcess(info.process, 1);
+            WaitForSingleObject(info.process, 5000);
+        }
+        CloseHandle(info.thread);
+        CloseHandle(info.process);
+    }
+    public static void Run(string exe, string packageState) {
         string name = "MuseumSmoke" + Guid.NewGuid().ToString("N");
         IntPtr desktop = CreateDesktop(name, IntPtr.Zero, IntPtr.Zero, 0, 0x1ff, IntPtr.Zero);
         if (desktop == IntPtr.Zero) throw new Win32Exception();
         try {
-            var startup = new StartupInfo();
-            startup.size = Marshal.SizeOf(startup);
-            startup.desktop = name;
-            ProcessInfo info;
-            if (!CreateProcess(exe, null, IntPtr.Zero, IntPtr.Zero, false, 0x08000000, IntPtr.Zero,
-                null, ref startup, out info)) throw new Win32Exception();
+            ProcessInfo info = Start(exe, name);
             try {
                 IntPtr first = WaitForDialog(desktop, info, IntPtr.Zero);
                 Click(first, 110, 201); // TDM_CLICK_RADIO_BUTTON
-                Click(first, 113, 1);   // TDM_CLICK_VERIFICATION
+                if (String.IsNullOrEmpty(packageState)) Click(first, 113, 1); // TDM_CLICK_VERIFICATION
                 Click(first, 102, 100); // TDM_CLICK_BUTTON (Save)
+                if (!String.IsNullOrEmpty(packageState)) {
+                    var timeout = Stopwatch.StartNew();
+                    while (!File.Exists(packageState) && timeout.ElapsedMilliseconds < 5000) Thread.Sleep(30);
+                    if (!File.Exists(packageState)) throw new Exception("The owner did not save the settings.");
+                    ProcessInfo launcher = Start(exe, name);
+                    try {
+                        if (WaitForSingleObject(launcher.process, 5000) != 0 || ExitCode(launcher.process) != 0)
+                            throw new Exception("A second launch should notify the owner and exit.");
+                    } finally { CloseProcess(launcher); }
+                }
                 IntPtr second = WaitForDialog(desktop, info, first);
                 Click(second, 102, 2);  // IDCANCEL
-                IntPtr third = WaitForDialog(desktop, info, second);
-                Click(third, 102, 101); // Restore
+                if (String.IsNullOrEmpty(packageState)) {
+                    IntPtr third = WaitForDialog(desktop, info, second);
+                    Click(third, 102, 101); // Restore
+                } else {
+                    using (var stop = EventWaitHandle.OpenExisting(@"Local\Museum.Native.Stop")) stop.Set();
+                }
                 if (WaitForSingleObject(info.process, 5000) != 0 || ExitCode(info.process) != 0)
                     throw new Exception("Settings assertions failed.");
             } finally {
-                if (WaitForSingleObject(info.process, 0) != 0) {
-                    TerminateProcess(info.process, 1);
-                    WaitForSingleObject(info.process, 5000);
-                }
-                CloseHandle(info.thread);
-                CloseHandle(info.process);
+                CloseProcess(info);
             }
         } finally { CloseDesktop(desktop); }
     }

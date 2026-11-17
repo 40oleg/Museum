@@ -29,7 +29,7 @@ $fixture = Build-Test 'wallpaper.test'
 if ($LASTEXITCODE -ne 0) { throw 'Wallpaper regression failed' }
 $fixture = Build-Test 'settings.test' -Manifest
 Add-Type -TypeDefinition ([IO.File]::ReadAllText((Join-Path $PSScriptRoot 'DialogSmoke.cs')))
-[MuseumDialogSmoke]::Run($fixture)
+[MuseumDialogSmoke]::Run($fixture, $null)
 $fixture = Build-Test 'wallpaper.windows'
 & $fixture --disposable-desktop $images
 if ($LASTEXITCODE -ne 0) { throw 'Native wallpaper integration failed' }
@@ -43,6 +43,10 @@ $owner = $null
 $originalAppData = $env:LOCALAPPDATA
 try {
     $env:LOCALAPPDATA = $runData
+    $settings = Join-Path $runData 'Museum/settings.json'
+    [MuseumDialogSmoke]::Run($museum, $settings)
+    $saved = Get-Content -Raw -LiteralPath $settings | ConvertFrom-Json
+    if ($saved.enabled -ne $false -or $saved.intervalIndex -ne 1) { throw 'Persisted settings differ from the UI' }
     Invoke-Museum '--install'
     $command = Get-ItemPropertyValue -Path $registry -Name Museum
     if ($command -ne ('"' + $museum + '" --background')) { throw "Incorrect autostart command: $command" }
@@ -66,15 +70,4 @@ try {
     }
     Remove-ItemProperty -LiteralPath $registry -Name Museum -ErrorAction SilentlyContinue
     $env:LOCALAPPDATA = $originalAppData
-}
-
-$token = [Guid]::NewGuid().ToString('N')
-$owner = Start-Process $museum -ArgumentList "--instance-check $token" -WindowStyle Hidden -PassThru
-try {
-    # Either process may become the owner. Both must observe the handshake.
-    Invoke-Museum "--instance-check $token"
-    if (!$owner.WaitForExit(20000) -or $owner.ExitCode -ne 0) { throw 'Single-instance handshake failed' }
-} finally {
-    if (!$owner.HasExited) { $owner.Kill(); $owner.WaitForExit() }
-    $owner.Dispose()
 }

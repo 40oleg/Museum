@@ -196,24 +196,3 @@ export function uninstallAutostart() {
         RegCloseKey(key);
     }
 }
-
-export function checkInstance(token) {
-    if (!token || !/^[a-zA-Z0-9-]{1,60}$/.test(token)) {
-        throw new Error("--instance-check requires a token of 1 to 60 letters, digits or hyphens.");
-    }
-    const instance = new Instance(`${INSTANCE_NAME}.Check.${token}`);
-    try {
-        if (!instance.acquire()) {
-            instance.requestSettings();
-            console.log("Museum check request sent");
-            return;
-        }
-        console.log("Museum check owner ready");
-        if (instance.wait(15000) !== WAIT_SETTINGS) {
-            throw new Error("No second process signaled the Museum check owner within 15 seconds.");
-        }
-        console.log("Museum check owner received settings signal");
-    } finally {
-        instance.close();
-    }
-}

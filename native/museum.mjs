@@ -12,7 +12,6 @@ import {
     Instance,
     WAIT_SETTINGS,
     WAIT_STOP,
-    checkInstance,
     installAutostart,
     showExistingSettings,
     uninstallAutostart,
@@ -115,7 +114,7 @@ function runWorker(instance, interactive) {
     const catalog = loadCatalog();
     const state = loadState(statePath);
     mkdirSync(stateDirectory, { recursive: true });
-    const firstPainting = Math.floor(Math.random() * catalog.length);
+    let pendingFile = "";
     const settingsTitle = "Настройки Museum";
     let retryAt = 0;
     let event = interactive ? WAIT_SETTINGS : instance.wait(0);
@@ -135,14 +134,16 @@ function runWorker(instance, interactive) {
             const result = showSettings(state.enabled, state.intervalIndex, canRestoreWallpaper(stateDirectory));
             if (instance.stopRequested()) return;
             if (result && result.action === "restore") {
+                // Keep rotation disabled across a crash between restoring the
+                // desktop and marking its backup complete.
+                state.enabled = false;
+                state.lastFile = "";
+                state.lastChangedAt = 0;
+                state.lastRotationError = "";
+                saveState(statePath, state);
                 try {
-                    if (restoreWallpaper(stateDirectory)) {
-                        state.enabled = false;
-                        state.lastFile = "";
-                        state.lastChangedAt = 0;
-                        state.lastRotationError = "";
-                        saveState(statePath, state);
-                    }
+                    restoreWallpaper(stateDirectory);
+                    pendingFile = "";
                 } catch (error) {
                     showError(error, settingsTitle);
                 }
@@ -172,9 +173,14 @@ function runWorker(instance, interactive) {
             continue;
         }
         if (instance.stopRequested()) return;
-        const previous = catalog.findIndex((painting) => painting.file === state.lastFile);
-        const next = previous < 0 ? firstPainting : (previous + 1) % catalog.length;
-        const file = catalog[next].file;
+        if (!pendingFile) {
+            const previous = catalog.findIndex((painting) => painting.file === state.lastFile);
+            const choices = previous < 0 ? catalog.length : catalog.length - 1;
+            let next = Math.floor(Math.random() * choices);
+            if (previous >= 0 && next >= previous) next++;
+            pendingFile = catalog[next].file;
+        }
+        const file = pendingFile;
         try {
             applyPainting(join(wallpapers, file), stateDirectory);
         } catch (error) {
@@ -193,6 +199,7 @@ function runWorker(instance, interactive) {
             continue;
         }
         state.lastFile = file;
+        pendingFile = "";
         state.lastChangedAt = Date.now();
         state.lastRotationError = "";
         retryAt = 0;
@@ -203,10 +210,6 @@ function runWorker(instance, interactive) {
 
 function main() {
     const mode = process.argv[1];
-    if (mode === "--instance-check" && process.argv.length === 3) {
-        checkInstance(process.argv[2]);
-        return;
-    }
     if (process.argv.length > 2) throw new Error("Museum accepts only one mode at a time.");
     if (mode === "--check") {
         checkPackage();
